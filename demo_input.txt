@@ -1,0 +1,12 @@
+add
+go to the store
+add
+vacuum clean
+list
+remove
+2
+list
+add
+program
+list
+stop
