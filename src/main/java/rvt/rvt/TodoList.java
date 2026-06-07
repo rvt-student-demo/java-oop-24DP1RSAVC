@@ -1,34 +1,38 @@
 package rvt;
 
-import java.util.ArrayList;
 import java.util.List;
 import java.util.Scanner;
 
 public class TodoList {
-    private List<String> tasks;
+    private TodoDB db;
 
     public TodoList() {
-        this.tasks = new ArrayList<>();
+        this.db = new TodoDB();
     }
 
     public void add(String task) {
-        this.tasks.add(task);
+        db.add(task);
     }
 
     public void print() {
+        List<String> tasks = db.findAll();
         for (int i = 0; i < tasks.size(); i++) {
             System.out.println((i + 1) + ": " + tasks.get(i));
         }
     }
 
     public void remove(int number) {
-        // number corresponds to printed index (1-based)
-        this.tasks.remove(number - 1);
+        db.removeByIndex(number);
     }
 
     public String complete(int number) {
-        // remove and return the completed task text
-        return this.tasks.remove(number - 1);
+        List<String> tasks = db.findAll();
+        if (number < 1 || number > tasks.size()) {
+            return null;
+        }
+        String task = tasks.get(number - 1);
+        db.removeByIndex(number);
+        return task;
     }
 
     public static void main(String[] args) {
